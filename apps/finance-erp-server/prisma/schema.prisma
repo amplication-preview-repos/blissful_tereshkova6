@@ -1,0 +1,105 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Report {
+  createdAt     DateTime  @default(now())
+  generatedBy   String?
+  id            String    @id @default(cuid())
+  reportContent String?
+  reportDate    DateTime?
+  updatedAt     DateTime  @updatedAt
+}
+
+model FundRequest {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model TreasuryTransaction {
+  amount          Float?
+  createdAt       DateTime                                @default(now())
+  description     String?
+  id              String                                  @id @default(cuid())
+  transactionDate DateTime?
+  transactionType EnumTreasuryTransactionTransactionType?
+  updatedAt       DateTime                                @updatedAt
+}
+
+model Contract {
+  clientName     String?
+  contractNumber String?
+  createdAt      DateTime  @default(now())
+  endDate        DateTime?
+  id             String    @id @default(cuid())
+  startDate      DateTime?
+  updatedAt      DateTime  @updatedAt
+}
+
+model Budget {
+  allocatedAmount Float?
+  budgetYear      Int?
+  createdAt       DateTime @default(now())
+  id              String   @id @default(cuid())
+  updatedAt       DateTime @updatedAt
+  utilizedAmount  Float?
+}
+
+model Asset {
+  assetName    String?
+  createdAt    DateTime  @default(now())
+  description  String?
+  id           String    @id @default(cuid())
+  purchaseDate DateTime?
+  updatedAt    DateTime  @updatedAt
+  value        Float?
+}
+
+model FinancialAccount {
+  accountName   String?
+  accountNumber String?
+  balance       Float?
+  createdAt     DateTime @default(now())
+  id            String   @id @default(cuid())
+  updatedAt     DateTime @updatedAt
+}
+
+model Invoice {
+  amount        Float?
+  clientName    String?
+  createdAt     DateTime  @default(now())
+  id            String    @id @default(cuid())
+  invoiceDate   DateTime?
+  invoiceNumber String?
+  updatedAt     DateTime  @updatedAt
+}
+
+model ProcurementOrder {
+  createdAt    DateTime  @default(now())
+  id           String    @id @default(cuid())
+  orderDate    DateTime?
+  orderNumber  String?
+  supplierName String?
+  totalAmount  Float?
+  updatedAt    DateTime  @updatedAt
+}
+
+model Employee {
+  createdAt DateTime @default(now())
+  email     String?
+  id        String   @id @default(cuid())
+  name      String?
+  position  String?
+  surname   String?
+  updatedAt DateTime @updatedAt
+}
+
+enum EnumTreasuryTransactionTransactionType {
+  Option1
+}
